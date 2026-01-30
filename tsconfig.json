@@ -1,0 +1,38 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@repositories": [
+        "./src/repositories/index.ts"
+      ],
+      "@interfaces": [
+        "./src/repositories/interfaces/index.ts"
+      ],
+      "@controllers": [
+        "./src/controllers/index.ts"
+      ],
+      "@services": [
+        "./src/services/index.ts"
+      ],
+      "@entities": [
+        "./src/entities/index.ts"
+      ],
+      "@types": [
+        "./src/types/index.ts"
+      ]
+    }
+  },
+  "include": [
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
