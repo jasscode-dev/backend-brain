@@ -1,13 +1,22 @@
 {
   "compilerOptions": {
-    "target": "es2020",
-    "module": "commonjs",
+    "target": "ES2022",
+    "module": "ESNext",
+    "lib": [
+      "ES2022"
+    ],
+    "moduleResolution": "Bundler",
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
+    "verbatimModuleSyntax": true,
     "forceConsistentCasingInFileNames": true,
+    "types": [
+      "node",
+      "jest"
+    ],
     "paths": {
       "@repositories": [
         "./src/repositories/index.ts"
@@ -18,11 +27,17 @@
       "@controllers": [
         "./src/controllers/index.ts"
       ],
-      "@services": [
-        "./src/services/index.ts"
+      "@use-cases": [
+        "./src/use-cases/index.ts"
       ],
       "@entities": [
         "./src/entities/index.ts"
+      ],
+      "@utils": [
+        "./src/utils/index.ts"
+      ],
+      "@middlewares": [
+        "./src/middlewares/index.ts"
       ],
       "@types": [
         "./src/types/index.ts"
@@ -30,9 +45,10 @@
     }
   },
   "include": [
-    "src/**/*"
+    "src/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }

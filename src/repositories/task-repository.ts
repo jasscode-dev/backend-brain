@@ -1,9 +1,21 @@
-import { ITaskRepository } from "@types";
+ import type { ITaskRepository, Status, Task } from "@types";
+
 
 export const TaskRepository: ITaskRepository = {
 
-    create: async (task) => {
-
+    save(task) {
+        return Promise.resolve(task);
     },
-
-}
+    findAll: function (): Promise<Task[]> {
+        throw new Error("Function not implemented.");
+    },
+    findById: function (id: string): Promise<Task | null> {
+        throw new Error("Function not implemented.");
+    },
+    update: function (id: string, status: Status): Promise<Task | null> {
+        throw new Error("Function not implemented.");
+    },
+    remove: function (id: string): Promise<void> {
+        throw new Error("Function not implemented.");
+    }
+} 

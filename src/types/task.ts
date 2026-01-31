@@ -4,6 +4,8 @@ export type Task = {
     status: Status;
     timeInit: string;
     timeEnd: string;
+    totalMinutes: number;
+    category: Category;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -13,16 +15,23 @@ export enum Status {
     PENDING = 'PENDING',
     COMPLETED = 'COMPLETED'
 }
-export type RequestTask = {
+export type CreateTaskType = {
     content: string;
     timeInit: string;
     timeEnd: string;
+    category: Category;
+}
+export enum Category {
+    WORK = 'WORK',
+    PERSONAL = 'PERSONAL',
+    STUDY = 'STUDY',
+    BREAK = 'BREAK'
 }
 
-export type ITaskRepository = {
-    save(task: CreateTask): Promise<Task>;
+export interface ITaskRepository {
+    save(task: Task): Promise<Task>;
     findAll(): Promise<Task[]>;
     findById(id: string): Promise<Task | null>;
     update(id: string, status: Status): Promise<Task | null>;
-    delete(id: string): Promise<void>;
+    remove(id: string): Promise<void>;
 }
