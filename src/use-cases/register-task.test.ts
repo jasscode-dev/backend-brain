@@ -20,6 +20,22 @@ describe('Create Task', () => {
         expect(savedTask?.status).toBe(Status.CREATEAD)
     })
 
+    it('should throw an error if task already exists', async () => {
+        const repository = InMemoryTaskRepository([
+            {
+                id: "1", content: 'Task 1', timeInit: '08:00',
+                timeEnd: '09:00', category: 'WORK', totalMinutes: 60,
+                createdAt: new Date(), updatedAt: new Date(), status: Status.CREATEAD
+            }
+        ])
+
+        const input = { content: 'Task 1', timeInit: '08:00', timeEnd: '09:00', category: 'WORK' as Category }
+
+
+        await expect(registerTask(input, repository)).rejects.toThrow("Task already exists");
+
+    })
+
 
     it('should throw an error if content is missing', async () => {
         const repository = InMemoryTaskRepository()
@@ -47,4 +63,5 @@ describe('Create Task', () => {
 
 
 
-})
+
+})  

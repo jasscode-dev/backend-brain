@@ -21,12 +21,14 @@ export type CreateTaskType = {
     timeEnd: string;
     category: Category;
 }
-export enum Category {
-    WORK = 'WORK',
-    PERSONAL = 'PERSONAL',
-    STUDY = 'STUDY',
-    BREAK = 'BREAK'
-}
+export const Category = {
+    WORK: "WORK",
+    PERSONAL: "PERSONAL",
+    STUDY: "STUDY",
+    BREAK: "BREAK"
+} as const;
+
+export type Category = "WORK" | "PERSONAL" | "STUDY" | "BREAK"
 
 export interface ITaskRepository {
     save(task: Task): Promise<Task>;

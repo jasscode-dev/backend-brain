@@ -7,6 +7,10 @@ export const InMemoryTaskRepository = (initalTasks: Task[] = []): ITaskRepositor
 
     return {
         save: async (task: Task) => {
+            const taskExists = tasks.find(t => t.timeInit === task.timeInit)
+            if (taskExists) {
+                throw new Error("Task already exists")
+            }
             tasks.push(task)
             return task
         },

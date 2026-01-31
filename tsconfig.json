@@ -41,6 +41,9 @@
       ],
       "@types": [
         "./src/types/index.ts"
+      ],
+      "@schemas": [
+        "./src/schemas/index.ts"
       ]
     }
   },

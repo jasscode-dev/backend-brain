@@ -1,8 +1,9 @@
 import { v4 } from "uuid";
 import { timeToMinutes } from "@entities";
 import { type CreateTaskType, Status, type Task } from "@types";
+import type { TaskSchemaType } from "@schemas";
 
-export const createTask = (task: CreateTaskType): Task => {
+export const createTask = (task: TaskSchemaType): Task => {
     const start = timeToMinutes(task.timeInit)
     const end = timeToMinutes(task.timeEnd)
 
