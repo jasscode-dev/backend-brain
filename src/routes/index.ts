@@ -7,4 +7,4 @@ router.get('/ping', (req, res) => {
     res.json({ pong: true })
 })
 
-router.post('/tasks', createTaskController);
+router.post('/task', createTaskController);
