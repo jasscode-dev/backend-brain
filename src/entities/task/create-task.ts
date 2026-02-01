@@ -1,19 +1,21 @@
 import { v4 } from "uuid";
-import { timeToMinutes } from "@entities";
-import { type CreateTaskType, Status, type Task } from "@types";
+import { timeToSeconds } from "@entities";
+import { Status, type Task } from "@types";
 import type { TaskSchemaType } from "@schemas";
+import { AppError } from "../../erros/app-error";
 
 export const createTask = (task: TaskSchemaType): Task => {
-    const start = timeToMinutes(task.timeInit)
-    const end = timeToMinutes(task.timeEnd)
+
+    const start = timeToSeconds(task.timeInit)
+    const end = timeToSeconds(task.timeEnd)
 
     if (!task.content || task.content.trim().length < 2) {
-        throw new Error("Content must have at least 2 characters");
-    }
-    if (end <= start) {
-        throw new Error("End time must be after start time");
+        throw new AppError("Content must have at least 2 characters", 400, "VALIDATION_ERROR")
     }
 
+    if (end <= start) {
+        throw new AppError("End time must be after start time", 400, "VALIDATION_ERROR")
+    }
 
 
     return Object.freeze({
@@ -21,11 +23,12 @@ export const createTask = (task: TaskSchemaType): Task => {
         content: task.content,
         timeInit: task.timeInit,
         timeEnd: task.timeEnd,
-        totalMinutes: end - start,
-        status: Status.CREATEAD,
+        totalSeconds: 0,
+        status: Status.CREATED,
+        startedAt: null,
+        duration: end - start,
         category: task.category,
         createdAt: new Date(),
         updatedAt: new Date()
-    });
-
+    })
 }

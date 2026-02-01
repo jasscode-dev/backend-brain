@@ -13,6 +13,10 @@ const config: Config = {
     "^@use-cases$": "<rootDir>/src/use-cases/index.ts",
     "^@entities$": "<rootDir>/src/entities/index.ts",
     "^@types$": "<rootDir>/src/types/index.ts",
+    "^@schemas$": "<rootDir>/src/schemas/index.ts",
+    "^@utils$": "<rootDir>/src/utils/index.ts",
+    "^@middlewares$": "<rootDir>/src/middlewares/index.ts",
+    "^@tests$": "<rootDir>/src/tests/index.ts",
   },
   transform: {
     '^.+\\.tsx?$': [

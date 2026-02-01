@@ -7,8 +7,16 @@ export const TaskSchema = z.object({
     content: z.string().min(2, { message: "Content must have at least 2 characters" }),
     timeInit: z.string().regex(regexTime, { message: "Invalid time format" }),
     timeEnd: z.string().regex(regexTime, { message: "Invalid time format" }),
-    category: z.enum(["STUDY", "WORK", "PERSONAL", "BREAK"])
+    category: z.enum(
+        ["STUDY", "WORK", "PERSONAL", "BREAK"],
+        {
+            error: () => ({
+                message: "Invalid category"
+            })
+        }
+    )
 
-});
+
+})
 
 export type TaskSchemaType = z.infer<typeof TaskSchema>;

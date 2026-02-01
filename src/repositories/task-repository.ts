@@ -1,4 +1,4 @@
- import type { ITaskRepository, Status, Task } from "@types";
+import type { ITaskRepository, Status, Task, ToggleTaskType } from "@types";
 
 
 export const TaskRepository: ITaskRepository = {
@@ -12,7 +12,7 @@ export const TaskRepository: ITaskRepository = {
     findById: function (id: string): Promise<Task | null> {
         throw new Error("Function not implemented.");
     },
-    update: function (id: string, status: Status): Promise<Task | null> {
+    update: function (id: string, task: ToggleTaskType): Promise<Task | null> {
         throw new Error("Function not implemented.");
     },
     remove: function (id: string): Promise<void> {

@@ -1,5 +1,6 @@
 
-import type { ITaskRepository, Status, Task } from "../../types";
+import type { ITaskRepository, Task, ToggleTaskType } from "@types";
+
 
 export const InMemoryTaskRepository = (initalTasks: Task[] = []): ITaskRepository => {
     const tasks: Task[] = [...initalTasks];
@@ -23,10 +24,14 @@ export const InMemoryTaskRepository = (initalTasks: Task[] = []): ITaskRepositor
             return tasks.find(task => task.id === id) || null
         },
 
-        update: async (id: string, status: Status) => {
+        update: async (id: string, taskData: ToggleTaskType) => {
             const task = tasks.find(task => task.id === id)
             if (task) {
-                task.status = status
+                task.status = taskData.status
+                task.duration = taskData.duration
+                task.totalSeconds = taskData.totalSeconds
+                task.updatedAt = taskData.updatedAt
+                task.startedAt = taskData.startedAt
             }
             return task || null
         },

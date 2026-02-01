@@ -1,19 +1,24 @@
+import { number } from "zod";
+
 export type Task = {
     id: string;
     content: string;
     status: Status;
     timeInit: string;
     timeEnd: string;
-    totalMinutes: number;
+    totalSeconds: number;
+    duration: number;
+    startedAt: Date | null;
     category: Category;
     createdAt: Date;
     updatedAt: Date;
 }
 
 export enum Status {
-    CREATEAD = 'CREATEAD',
+    CREATED = 'CREATED',
     PENDING = 'PENDING',
-    COMPLETED = 'COMPLETED'
+    DONE = 'DONE',
+    PAUSED = 'PAUSED'
 }
 export type CreateTaskType = {
     content: string;
@@ -28,12 +33,20 @@ export const Category = {
     BREAK: "BREAK"
 } as const;
 
-export type Category = "WORK" | "PERSONAL" | "STUDY" | "BREAK"
+export type ToggleTaskType = {
+    status: Status,
+    startedAt: Date | null,
+    duration: number,
+    totalSeconds: number,
+    updatedAt: Date
+}
+
+export type Category = keyof typeof Category;
 
 export interface ITaskRepository {
     save(task: Task): Promise<Task>;
     findAll(): Promise<Task[]>;
     findById(id: string): Promise<Task | null>;
-    update(id: string, status: Status): Promise<Task | null>;
+    update(id: string, task: ToggleTaskType): Promise<Task | null>;
     remove(id: string): Promise<void>;
 }

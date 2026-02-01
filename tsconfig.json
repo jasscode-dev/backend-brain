@@ -44,11 +44,15 @@
       ],
       "@schemas": [
         "./src/schemas/index.ts"
+      ],
+      "@tests": [
+        "./src/tests/index.ts"
       ]
     }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/use-cases/task/toggle-task-use-casets"
   ],
   "exclude": [
     "node_modules",

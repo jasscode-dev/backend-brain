@@ -1,7 +1,7 @@
 
 import { createTask } from "@entities";
-import type { ITaskRepository, CreateTaskType } from "../types";
-import type { TaskSchemaType } from "../schemas/task-schema";
+import type { ITaskRepository, CreateTaskType } from "../../types";
+import type { TaskSchemaType } from "../../schemas/task-schema";
 
 export const registerTask = async (task: TaskSchemaType, repository: ITaskRepository) => {
 

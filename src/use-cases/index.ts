@@ -1,1 +1,1 @@
-export * from './register-task'
+export * from './task/register-task'
