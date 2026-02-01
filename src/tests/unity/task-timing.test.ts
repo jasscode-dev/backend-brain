@@ -7,7 +7,7 @@ import {
     afterEach,
 } from "@jest/globals";
 
-import { Status, Category, type Task } from "@types";
+import { Status, Category, type TaskCreated } from "@types";
 import { startTask, pauseTask, doneTask } from "@entities";
 import { v4 as uuid } from "uuid";
 
@@ -21,7 +21,7 @@ describe("Task Timing Logic", () => {
         jest.useRealTimers();
     });
 
-    const createMockTask = (): Task => ({
+    const createMockTask = (): TaskCreated => ({
         id: uuid(),
         content: "Test task",
         status: Status.CREATED, // corrigido

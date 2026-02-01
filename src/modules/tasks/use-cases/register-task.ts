@@ -1,12 +1,12 @@
 
 import { createTask } from "@entities";
-import type { ITaskRepository, CreateTaskType } from "@types";
-import type { TaskSchemaType } from "@schemas";
+import type { ITaskRepository } from "@interfaces";
+import type { CreateTaskType } from "@types";
 
-export const registerTask = async (task: TaskSchemaType, repository: ITaskRepository) => {
+export const createTaskUseCase = async (input: CreateTaskType, repository: ITaskRepository) => {
 
-    const newTask = createTask(task)
-    await repository.save(newTask)
+    const newTask = await repository.save(createTask(input))
     return newTask
+
 
 }

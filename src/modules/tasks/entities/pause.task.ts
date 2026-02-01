@@ -1,8 +1,8 @@
-import { Status, type Task } from "@types";
+import { Status, type TaskCreated } from "@types";
 import { AppError } from "@errors";
 import { calculateAccumulatedSeconds } from "./time";
 
-export const pauseTask = (task: Task) => {
+export const pauseTask = (task: TaskCreated) => {
     if (task.status === Status.DONE) {
         throw new AppError("Task is already done", 400, "VALIDATION_ERROR")
     }

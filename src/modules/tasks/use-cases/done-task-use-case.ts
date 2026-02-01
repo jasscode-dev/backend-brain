@@ -7,7 +7,6 @@ export const doneTaskUseCase = async (id: string, repository: ITaskRepository) =
     if (!task) {
         throw new AppError("Task not found", 404, "NOT_FOUND")
     }
-    const updatedTask = doneTask(task)
-    await repository.update(id, updatedTask)
+    const updatedTask = await repository.update(id, doneTask(task))
     return updatedTask
 }

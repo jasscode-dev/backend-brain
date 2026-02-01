@@ -1,7 +1,7 @@
-import { Status, type Task } from "@types";
+import { Status, type TaskCreated } from "@types";
 import { AppError } from "@errors";
 
-export const startTask = (task: Task) => {
+export const startTask = (task: TaskCreated) => {
     if (task.status === Status.DONE) {
         throw new AppError("Task is already done", 400, "VALIDATION_ERROR")
     }

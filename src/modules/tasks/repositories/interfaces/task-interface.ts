@@ -1,9 +1,10 @@
-import type { Task, ToggleTaskType } from "@types";
+import type { TaskDomain, ToggleTaskType, TaskCreated } from "@types";
 
 export interface ITaskRepository {
-    save(task: Task): Promise<Task>;
-    findAll(): Promise<Task[]>;
-    findById(id: string): Promise<Task | null>;
-    update(id: string, task: ToggleTaskType): Promise<Task | null>;
+    save(task: TaskDomain): Promise<TaskCreated>;
+    findAll(): Promise<TaskCreated[]>;
+    findById(id: string): Promise<TaskCreated | null>;
+    update(id: string, task: ToggleTaskType): Promise<TaskCreated>;
     remove(id: string): Promise<void>;
+    findByStatus(status: string): Promise<TaskCreated | null>;
 }

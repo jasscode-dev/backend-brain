@@ -1,19 +1,18 @@
-import { describe, it, expect } from "@jest/globals"
+import { InMemoryTaskRepository } from "../repositories"
+import { pauseTaskUseCase } from "@use-cases"
 import { Category, Status } from "@types"
-import { startTaskUseCase } from "@use-cases"
-import { InMemoryTaskRepository } from "../repositories/in.memory.repository"
 
 
-describe("Start Task Use Case", () => {
+describe("Pause Task Use Case", () => {
     const mockTaskInitial = {
         id: "1",
         content: "Test task",
-        status: Status.CREATED,
+        status: Status.PENDING,
         timeInit: "08:00",
         timeEnd: "09:00",
         totalSeconds: 0,
         duration: 60 * 60,
-        startedAt: null,
+        startedAt: new Date(),
         category: Category.WORK,
         createdAt: new Date(),
         updatedAt: new Date(),
@@ -58,29 +57,13 @@ describe("Start Task Use Case", () => {
         updatedAt: new Date(),
     }
     let repository = InMemoryTaskRepository([mockTaskInitial])
-    it("should start a task", async () => {
+    it("should pause a task", async () => {
+        const task = await pauseTaskUseCase("1", repository)
+        expect(task.status).toBe(Status.PAUSED)
 
-        const task = await startTaskUseCase("1", repository)
-        expect(task.status).toBe(Status.PENDING)
-        expect(task.startedAt).not.toBeNull()
     })
-    it("should throw error when task is not found", async () => {
-        expect(() => startTaskUseCase("2", repository)).rejects.toThrow("Task not found")
-    })
-
-    it("should throw error when task is already done", async () => {
-        repository = InMemoryTaskRepository([mockTaskDone])
-        expect(() => startTaskUseCase("1", repository)).rejects.toThrow("Task is already done")
-    })
-    it("should start a task that is paused", async () => {
+    it("should not  pause a task if it is not started", async () => {
         repository = InMemoryTaskRepository([mockTaskPaused])
-        const task = await startTaskUseCase("1", repository)
-        expect(task.status).toBe(Status.PENDING)
-        expect(task.startedAt).not.toBeNull()
+        expect(() => pauseTaskUseCase("1", repository)).rejects.toThrow("Task is not started")
     })
-    it("should throw error when task is already running", async () => {
-        repository = InMemoryTaskRepository([mockTaskPending])
-        expect(() => startTaskUseCase("1", repository)).rejects.toThrow("There is already an active task")
-    })
-
 })
