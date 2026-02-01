@@ -1,6 +1,6 @@
 import { describe, it, expect } from "@jest/globals"
 import { Category, Status } from "@types"
-import { startTaskUseCase } from "../../../use-cases/task/start-task-use-case"
+import { startTaskUseCase } from "@use-cases"
 import { InMemoryTaskRepository } from "../repositories/in-memory-user-repository"
 
 describe("Start Task Use Case", () => {

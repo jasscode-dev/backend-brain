@@ -1,4 +1,5 @@
-import type { ITaskRepository, Status, Task, ToggleTaskType } from "@types";
+import type { Task, ToggleTaskType } from "@types";
+import type { ITaskRepository } from "@interfaces";
 
 
 export const TaskRepository: ITaskRepository = {

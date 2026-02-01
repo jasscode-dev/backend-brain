@@ -1,5 +1,7 @@
 
-import type { ITaskRepository, Task, ToggleTaskType } from "@types";
+import type { Task, ToggleTaskType } from "@types";
+import type { ITaskRepository } from "@interfaces";
+
 
 
 export const InMemoryTaskRepository = (initalTasks: Task[] = []): ITaskRepository => {

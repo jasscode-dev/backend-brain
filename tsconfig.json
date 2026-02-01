@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "ES2022",
     "module": "ESNext",
     "lib": [
@@ -19,31 +20,31 @@
     ],
     "paths": {
       "@repositories": [
-        "./src/repositories/index.ts"
+        "src/modules/tasks/repositories/index.ts"
       ],
       "@interfaces": [
-        "./src/repositories/interfaces/index.ts"
+        "src/modules/tasks/repositories/interfaces/index.ts"
       ],
       "@controllers": [
-        "./src/controllers/index.ts"
+        "./src/modules/tasks/controllers/index.ts"
       ],
       "@use-cases": [
-        "./src/use-cases/index.ts"
+        "./src/modules/tasks/use-cases/index.ts"
       ],
       "@entities": [
-        "./src/entities/index.ts"
+        "./src/modules/tasks/entities/index.ts"
       ],
-      "@utils": [
-        "./src/utils/index.ts"
+      "@presenters": [
+        "./src/modules/tasks/presenters/index.ts"
       ],
-      "@middlewares": [
-        "./src/middlewares/index.ts"
+      "@schemas": [
+        "./src/modules/tasks/schemas/index.ts"
       ],
       "@types": [
         "./src/types/index.ts"
       ],
-      "@schemas": [
-        "./src/schemas/index.ts"
+      "@errors": [
+        "./src/errors/index.ts"
       ],
       "@tests": [
         "./src/tests/index.ts"

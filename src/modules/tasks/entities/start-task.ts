@@ -1,5 +1,5 @@
 import { Status, type Task } from "@types";
-import { AppError } from "../../erros/app-error";
+import { AppError } from "@errors";
 
 export const startTask = (task: Task) => {
     if (task.status === Status.DONE) {

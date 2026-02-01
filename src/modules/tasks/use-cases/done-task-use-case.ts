@@ -1,6 +1,6 @@
 import { doneTask } from "@entities"
-import type { ITaskRepository } from "@types"
-import { AppError } from "../../erros/app-error"
+import { AppError } from "@errors"
+import type { ITaskRepository } from "@interfaces"
 
 export const doneTaskUseCase = async (id: string, repository: ITaskRepository) => {
     const task = await repository.findById(id)

@@ -1,8 +1,8 @@
 import { v4 } from "uuid";
-import { timeToSeconds } from "@entities";
+import { timeToSeconds } from "./time";
 import { Status, type Task } from "@types";
 import type { TaskSchemaType } from "@schemas";
-import { AppError } from "../../erros/app-error";
+import { AppError } from "@errors";
 
 export const createTask = (task: TaskSchemaType): Task => {
 

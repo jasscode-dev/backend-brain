@@ -1,7 +1,7 @@
 
 import { describe, it, expect } from "@jest/globals"
 import { Category, Status, type Task } from "@types";
-import { registerTask } from "../../../use-cases/task/register-task";
+import { registerTask } from "@use-cases";
 
 import { InMemoryTaskRepository } from "../repositories/in-memory-user-repository";
 

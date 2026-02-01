@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { router } from './routes'
-import { errorHandler } from './erros/error-handle'
+import { errorHandler } from './errors/error-handle'
 export const server = express()
 
 server.use(cors())
