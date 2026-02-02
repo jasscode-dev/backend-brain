@@ -15,6 +15,7 @@ const config: Config = {
     "^@schemas$": "<rootDir>/src/modules/tasks/schemas/index.ts",
     "^@presenters$": "<rootDir>/src/modules/tasks/presenters/index.ts",
     "^@errors$": "<rootDir>/src/errors/index.ts",
+    "^@middlewares$": "<rootDir>/src/middlewares/index.ts",
     "^@lib$": "<rootDir>/src/lib/index.ts",
     "^@prisma$": "<rootDir>/src/lib/prisma.ts"
   }

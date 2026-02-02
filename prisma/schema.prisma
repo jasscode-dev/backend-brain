@@ -14,7 +14,7 @@ model Task {
   id           String   @id @default(uuid())
   content      String
   status       String   @default("CREATED")
-  timeInit     String @unique
+  timeInit     String 
   timeEnd      String
   totalSeconds Int      @default(0)
   duration     Int      @default(0)

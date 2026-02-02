@@ -1,7 +1,7 @@
 import type { TaskCreated, TaskDomain, ToggleTaskType } from "@types";
 import type { ITaskRepository } from "./interfaces/task-interface";
 import { prisma } from "@prisma";
-import { toDomainTask, toPrismaTaskCreate } from "../entities/task.mapper";
+import { toDomainTask, toPrismaTaskCreate } from "../entities/task-mapper";
 
 
 

@@ -42,6 +42,9 @@
       "@errors": [
         "src/errors/index.ts"
       ],
+      "@middlewares": [
+        "src/middlewares/index.ts"
+      ],
       "@lib": [
         "src/lib/index.ts"
       ],

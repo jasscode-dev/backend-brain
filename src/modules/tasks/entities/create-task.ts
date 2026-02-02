@@ -13,7 +13,7 @@ export const createTask = (input: CreateTaskType): TaskDomain => {
     }
 
     if (end <= start) {
-        throw new AppError("End time must be after start time", 400, "VALIDATION_ERROR")
+        throw new AppError("Time init must be less than time end", 400, "VALIDATION_ERROR")
     }
 
 

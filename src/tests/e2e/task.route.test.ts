@@ -19,5 +19,6 @@ describe('Task Routes', () => {
             category: 'WORK',
         });
         expect(response.status).toBe(400);
+        expect(response.body.message).toBe('Time init must be less than time end');
     });
 });
