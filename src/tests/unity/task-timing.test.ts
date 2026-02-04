@@ -8,7 +8,7 @@ import {
 } from "@jest/globals";
 
 import { Status, Category, type TaskCreated } from "@types";
-import { startTask, pauseTask, doneTask } from "@entities";
+import { startTask, pauseTask, doneTask } from "src/modules/routine/entities";
 import { v4 as uuid } from "uuid";
 
 describe("Task Timing Logic", () => {

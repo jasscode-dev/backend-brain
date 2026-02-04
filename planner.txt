@@ -1,0 +1,3 @@
+Planejado → durationSec
+Executando → totalSeconds
+Finalizado → actualDurationSec

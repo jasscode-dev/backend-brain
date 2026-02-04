@@ -6,18 +6,22 @@ const config: Config = {
   testMatch: ["**/*.test.ts"],
 
   moduleNameMapper: {
-    "^@repositories$": "<rootDir>/src/modules/tasks/repositories/index.ts",
-    "^@interfaces$": "<rootDir>/src/modules/tasks/repositories/interfaces/index.ts",
-    "^@controllers$": "<rootDir>/src/modules/tasks/controllers/index.ts",
-    "^@use-cases$": "<rootDir>/src/modules/tasks/use-cases/index.ts",
-    "^@entities$": "<rootDir>/src/modules/tasks/entities/index.ts",
+    "^@repositories$": "<rootDir>/src/modules/routine/repositories/index.ts",
+    "^@interfaces$": "<rootDir>/src/modules/routine/repositories/interfaces/index.ts",
+    "^@tasks/controllers$": "<rootDir>/src/modules/routine/controllers/index.ts",
+    "^@auth/controllers$": "<rootDir>/src/modules/user/controllers/index.ts",
+    "^@services$": "<rootDir>/src/modules/routine/services/index.ts",
+    "^@entities$": "<rootDir>/src/modules/routine/entities/index.ts",
+    "^@presenters$": "<rootDir>/src/modules/routine/presenters/index.ts",
+    "^@tasks/schemas$": "<rootDir>/src/modules/routine/validators/index.ts",
+    "^@auth/schemas$": "<rootDir>/src/modules/user/validators/index.ts",
     "^@types$": "<rootDir>/src/types/index.ts",
-    "^@schemas$": "<rootDir>/src/modules/tasks/schemas/index.ts",
-    "^@presenters$": "<rootDir>/src/modules/tasks/presenters/index.ts",
     "^@errors$": "<rootDir>/src/errors/index.ts",
     "^@middlewares$": "<rootDir>/src/middlewares/index.ts",
     "^@lib$": "<rootDir>/src/lib/index.ts",
-    "^@prisma$": "<rootDir>/src/lib/prisma.ts"
+    "^@prisma$": "<rootDir>/src/lib/prisma.ts",
+    "^src/(.*)$": "<rootDir>/src/$1",
+    "^(\\.{1,2}/.*)\\.js$": "$1"
   }
 };
 

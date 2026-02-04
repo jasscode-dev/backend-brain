@@ -16,25 +16,31 @@
     ],
     "paths": {
       "@repositories": [
-        "src/modules/tasks/repositories/index.ts"
+        "src/modules/routine/repositories/index.ts"
       ],
       "@interfaces": [
-        "src/modules/tasks/repositories/interfaces/index.ts"
+        "src/modules/routine/repositories/interfaces/index.ts"
       ],
-      "@controllers": [
-        "src/modules/tasks/controllers/index.ts"
+      "@tasks/controllers": [
+        "src/modules/routine/controllers/index.ts"
       ],
-      "@use-cases": [
-        "src/modules/tasks/use-cases/index.ts"
+      "@auth/controllers": [
+        "src/modules/user/controllers/index.ts"
+      ],
+      "@services": [
+        "src/modules/routine/services/index.ts"
       ],
       "@entities": [
-        "src/modules/tasks/entities/index.ts"
+        "src/modules/routine/entities/index.ts"
       ],
       "@presenters": [
-        "src/modules/tasks/presenters/index.ts"
+        "src/modules/routine/presenters/index.ts"
       ],
-      "@schemas": [
-        "src/modules/tasks/schemas/index.ts"
+      "@tasks/schemas": [
+        "src/modules/routine/validators/index.ts"
+      ],
+      "@auth/schemas": [
+        "src/modules/user/validators/index.ts"
       ],
       "@types": [
         "src/types/index.ts"
@@ -50,11 +56,15 @@
       ],
       "@prisma": [
         "src/lib/prisma.ts"
+      ],
+      "src/*": [
+        "src/*"
       ]
     }
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "src/types/user.types.ts"
   ],
   "exclude": [
     "node_modules",

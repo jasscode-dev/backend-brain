@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.prisma = void 0;
+require("dotenv/config");
+const adapter_better_sqlite3_1 = require("@prisma/adapter-better-sqlite3");
+const prisma_1 = require("src/generated/prisma");
+const connectionString = `${process.env.DATABASE_URL}`;
+const adapter = new adapter_better_sqlite3_1.PrismaBetterSqlite3({ url: connectionString });
+const prisma = new prisma_1.PrismaClient({ adapter });
+exports.prisma = prisma;
