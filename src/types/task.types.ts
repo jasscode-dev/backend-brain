@@ -21,6 +21,7 @@ export type TaskDomain = TaskInput & {
     totalSeconds: number;
     startedAt: Date | null;
     finishedAt: Date | null;
+    actualDurationSec?: number;
 }
 
 

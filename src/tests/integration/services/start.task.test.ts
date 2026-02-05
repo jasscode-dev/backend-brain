@@ -4,43 +4,9 @@ import { InMemoryTaskRepository } from "../repositories"
 import { InMemoryRoutineRepository } from "../repositories/in.memory.routine"
 import { TaskResponse } from "@types"
 
-describe("Pause Task Integration Test", () => {
+describe("Start Task Integration Test", () => {
 
-    it("should pause a task", async () => {
-        const mockTask: TaskResponse = {
-            id: "1",
-            content: "Test task",
-            status: 'INPROGRESS',
-            routineId: "routine-1",
-            category: 'WORK',
-            plannedStart: new Date(),
-            plannedEnd: new Date(),
-            durationSec: 3600,
-        }
-
-        const repository = InMemoryTaskRepository([mockTask])
-        const routineRepository = InMemoryRoutineRepository([])
-        const taskService = TaskService(repository, routineRepository)
-
-        // Simular que a task começou há 10 segundos
-        const startedAt = new Date()
-        startedAt.setSeconds(startedAt.getSeconds() - 10)
-
-        await repository.update("1", {
-            startedAt,
-            totalSeconds: 0
-        } as any)
-
-        const task = await taskService.pause("1")
-
-        expect(task.status).toBe('PAUSED')
-        // Esperamos pelo menos 10 segundos acumulados
-        // findById para pegar os dados completos do repositório in-memory
-        const updatedTask = await repository.findById("1")
-        expect((updatedTask as any).totalSeconds).toBeGreaterThanOrEqual(10)
-    })
-
-    it("should not pause a task if it is not in progress", async () => {
+    it("should start a task", async () => {
         const mockTask: TaskResponse = {
             id: "1",
             content: "Test task",
@@ -56,6 +22,49 @@ describe("Pause Task Integration Test", () => {
         const routineRepository = InMemoryRoutineRepository([])
         const taskService = TaskService(repository, routineRepository)
 
-        await expect(taskService.pause("1")).rejects.toThrow("Task is not running")
+        const task = await taskService.start("1")
+
+        expect(task.status).toBe('INPROGRESS')
+
+        const updatedTask = await repository.findById("1")
+        expect((updatedTask as any).startedAt).toBeDefined()
+    })
+
+    it("should not start a task if it is already in progress", async () => {
+        const mockTask: TaskResponse = {
+            id: "1",
+            content: "Test task",
+            status: 'INPROGRESS',
+            routineId: "routine-1",
+            category: 'WORK',
+            plannedStart: new Date(),
+            plannedEnd: new Date(),
+            durationSec: 3600,
+        }
+
+        const repository = InMemoryTaskRepository([mockTask])
+        const routineRepository = InMemoryRoutineRepository([])
+        const taskService = TaskService(repository, routineRepository)
+
+        await expect(taskService.start("1")).rejects.toThrow("Task is already running")
+    })
+
+    it("should not start a task if it is already done", async () => {
+        const mockTask: TaskResponse = {
+            id: "1",
+            content: "Test task",
+            status: 'DONE',
+            routineId: "routine-1",
+            category: 'WORK',
+            plannedStart: new Date(),
+            plannedEnd: new Date(),
+            durationSec: 3600,
+        }
+
+        const repository = InMemoryTaskRepository([mockTask])
+        const routineRepository = InMemoryRoutineRepository([])
+        const taskService = TaskService(repository, routineRepository)
+
+        await expect(taskService.start("1")).rejects.toThrow("Task is already done")
     })
 })

@@ -11,6 +11,14 @@ export const taskMapper = {
         category: task.category,
         durationSec: task.durationSec,
     }),
+    toPrismaUpdate: (task: Partial<TaskDomain>) => ({
+        content: task.content,
+        status: task.status,
+        startedAt: task.startedAt,
+        finishedAt: task.finishedAt,
+        totalSeconds: task.totalSeconds,
+        actualDurationSec: task.actualDurationSec,
+    }),
     toDomain: (prismaTask: PrismaTask): TaskResponse => ({
         id: prismaTask.id,
         content: prismaTask.content,

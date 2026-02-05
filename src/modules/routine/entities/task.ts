@@ -38,56 +38,65 @@ export const taskDomain = {
             category: input.category,
         })
     },
-    /*  start: (task: TaskDomain) => {
-         if (task.status === Status.DONE) {
-             throw new AppError("Task is already done", 400)
-         }
-         if (task.status === Status.PENDING) {
-             throw new AppError("Task is already running", 400)
-         }
-         return {
-             status: Status.PENDING,
-             startedAt: new Date(),
-             duration: task.durationSec,
-             totalSeconds: task.totalSeconds,
-             updatedAt: new Date()
-         }
-     }, */
-    /*  pause: (task: TaskDomain) => {
-         if (task.status === Status.DONE) {
-             throw new AppError("Task is already done", 400)
-         }
-         if (task.status === Status.CREATED || task.status === Status.PAUSED || !task.startedAt) {
-             throw new AppError("Task is not started", 400)
-         }
- 
-         const totalSeconds = calculateAccumulatedSeconds(task.startedAt, task.totalSeconds);
- 
-         return {
-             status: Status.PAUSED,
-             startedAt: null,
-             duration: task.duration,
-             totalSeconds,
-             updatedAt: new Date()
-         }
-     },
-     done: (task: TaskDomain) => {
-         if (task.status === Status.DONE) {
-             throw new AppError("Task is already done", 400)
-         }
-         if (task.status === Status.CREATED || task.status === Status.PAUSED || !task.startedAt) {
-             throw new AppError("Task is not started", 400)
-         }
- 
-         const totalSeconds = calculateAccumulatedSeconds(task.startedAt, task.totalSeconds);
- 
-         return {
-             status: Status.DONE,
-             startedAt: null,
-             duration: task.duration,
-             totalSeconds,
-             updatedAt: new Date()
-         }
-     } */
+    start: (task: TaskDomain) => {
+        if (task.status === 'DONE') {
+            throw new AppError("Task is already done", 400)
+        }
+        if (task.status === 'INPROGRESS') {
+            throw new AppError("Task is already running", 400)
+        }
+        return {
+            ...task,
+            status: 'INPROGRESS' as const,
+            startedAt: new Date(),
+
+        }
+
+    },
+    pause: (task: TaskDomain) => {
+        if (task.status !== 'INPROGRESS') {
+            throw new AppError("Task is not running", 400)
+        }
+        if (!task.startedAt) {
+            throw new AppError("Task is not running", 400)
+        }
+        const now = new Date()
+
+        const difSec = Math.floor((now.getTime() - task.startedAt.getTime()) / 1000)
+        const totalSeconds = task.totalSeconds + difSec
+        return {
+            ...task,
+            status: 'PAUSED' as const,
+            startedAt: null,
+            totalSeconds,
+
+        }
+    },
+    done: (task: TaskDomain) => {
+        if (task.status === 'DONE') {
+            throw new AppError("Task is already done", 400)
+        }
+
+        let totalSeconds = task.totalSeconds
+        let finishedAt = new Date()
+        if (task.status === 'INPROGRESS' && task.startedAt) {
+            totalSeconds += Math.floor(
+                (finishedAt.getTime() - task.startedAt.getTime()) / 1000
+            )
+        }
+
+        return {
+            ...task,
+            status: 'DONE' as const,
+            finishedAt: new Date(),
+            startedAt: null,
+            duration: task.durationSec,
+            totalSeconds,
+            actualDurationSec: totalSeconds,
+
+        }
+    }
+
+
 }
 

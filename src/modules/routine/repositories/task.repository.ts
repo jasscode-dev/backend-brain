@@ -17,6 +17,16 @@ export const TaskRepository: ITaskRepository = {
 
 
 
+    async update(id: string, task: Partial<TaskDomain>): Promise<TaskResponse> {
+        const updated = await prisma.task.update({
+            where: { id },
+            data: taskMapper.toPrismaUpdate(task)
+        });
+        return taskMapper.toDomain(updated);
+    },
+
+
+
     async findById(id: string): Promise<TaskResponse | null> {
         const task = await prisma.task.findUnique({
             where: { id }
