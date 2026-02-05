@@ -5,7 +5,7 @@ import { ITaskRepository } from "@interfaces";
 import { IRoutineRepository } from "@interfaces";
 
 
-
+type IdParam = { id: string }
 export const TaskController = (TaskRepository: ITaskRepository, RoutineRepository: IRoutineRepository) => {
     const taskService = TaskService(TaskRepository, RoutineRepository)
     return {
@@ -17,6 +17,27 @@ export const TaskController = (TaskRepository: ITaskRepository, RoutineRepositor
         getAll: async (req: Request, res: Response) => {
             const tasks = await taskService.findAll()
             return res.status(200).json(tasks)
+        },
+        start: async (req: Request<IdParam>, res: Response) => {
+            const { id } = req.params
+            const task = await taskService.start(id)
+            return res.status(200).json(task)
+        },
+        pause: async (req: Request<IdParam>, res: Response) => {
+            const { id } = req.params
+            const task = await taskService.pause(id)
+            return res.status(200).json(task)
+        },
+        done: async (req: Request<IdParam>, res: Response) => {
+            const { id } = req.params
+            const task = await taskService.done(id)
+            return res.status(200).json(task)
+        },
+        delete: async (req: Request<IdParam>, res: Response) => {
+            const { id } = req.params
+            await taskService.delete(id)
+            return res.status(204).send()
         }
     }
 }
+

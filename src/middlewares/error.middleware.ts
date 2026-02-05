@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { ZodError } from "zod";
-import { AppError } from "../errors/apperror";
+import { AppError } from "@errors";
 
 export const globalErrorHandler = (
     error: Error,
@@ -8,11 +8,9 @@ export const globalErrorHandler = (
     res: Response,
     next: NextFunction
 ) => {
-
-
     if (error instanceof AppError) {
-        console.log(error)
-        return res.status(400).json({
+        console.log(`[AppErrorHandler] Caught AppError: ${error.message} - Status: ${error.statusCode} - Request: ${req.method} ${req.originalUrl}`);
+        return res.status(error.statusCode).json({
             error: error.message,
             data: null
         });

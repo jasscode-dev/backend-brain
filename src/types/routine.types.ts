@@ -1,16 +1,13 @@
-import { TaskDomain, TaskModel } from "./task.types"
+import { TaskDomain, TaskModel, TaskResponse } from "./task.types"
 
 
 export type RoutineDomain = {
-
     userId: string,
     date: Date
     tasks: TaskDomain[]
     status: RoutineStatus
     totalTasks: number
     completedTasks: number
-
-
 }
 
 export type RoutineResponse = {
@@ -24,6 +21,7 @@ export type RoutineResponse = {
     completionRate: number
     starEarned: boolean
     xpEarned: number
+    tasks?: TaskResponse[]
 }
 
 export type RoutineModel = {

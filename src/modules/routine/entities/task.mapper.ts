@@ -1,6 +1,6 @@
 
 import type { TaskDomain, TaskResponse } from "@types";
-import { Task as PrismaTask } from "src/generated/prisma";
+import { Task as PrismaTask, StatusTask } from "src/generated/prisma";
 
 export const taskMapper = {
     toPrismaCreate: (task: TaskDomain) => ({
@@ -13,20 +13,36 @@ export const taskMapper = {
     }),
     toPrismaUpdate: (task: Partial<TaskDomain>) => ({
         content: task.content,
-        status: task.status,
+        statust: task.status ,
         startedAt: task.startedAt,
         finishedAt: task.finishedAt,
+        cancelledAt: task.cancelledAt,
         totalSeconds: task.totalSeconds,
         actualDurationSec: task.actualDurationSec,
     }),
-    toDomain: (prismaTask: PrismaTask): TaskResponse => ({
-        id: prismaTask.id,
-        content: prismaTask.content,
-        plannedStart: prismaTask.plannedStart,
-        plannedEnd: prismaTask.plannedEnd,
-        status: prismaTask.status,
-        category: prismaTask.category,
-        routineId: prismaTask.routineId,
-        durationSec: prismaTask.durationSec,
-    }),
+    toDomain: (prismaTask: PrismaTask & { routine?: { userId: string } }, userId?: string): TaskResponse => {
+        const finalUserId = userId || prismaTask.routine?.userId;
+
+        if (!finalUserId) {
+            throw new Error("Task userId or routine relation is required to map to domain");
+        }
+
+        return {
+            id: prismaTask.id,
+            userId: finalUserId,
+            content: prismaTask.content,
+            plannedStart: prismaTask.plannedStart,
+            plannedEnd: prismaTask.plannedEnd,
+            status: prismaTask.status,
+            category: prismaTask.category,
+            routineId: prismaTask.routineId,
+            durationSec: prismaTask.durationSec,
+            startedAt: prismaTask.startedAt,
+            finishedAt: prismaTask.finishedAt,
+            cancelledAt: prismaTask.cancelledAt,
+            totalSeconds: prismaTask.totalSeconds,
+            actualDurationSec: prismaTask.actualDurationSec,
+        }
+    },
+
 } 

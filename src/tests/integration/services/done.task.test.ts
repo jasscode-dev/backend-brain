@@ -9,6 +9,7 @@ describe("Done Task Integration Test", () => {
     it("should complete a task from PENDING", async () => {
         const mockTask: TaskResponse = {
             id: "1",
+            userId: "user-1",
             content: "Test task",
             status: 'PENDING',
             routineId: "routine-1",
@@ -16,6 +17,10 @@ describe("Done Task Integration Test", () => {
             plannedStart: new Date(),
             plannedEnd: new Date(),
             durationSec: 3600,
+            startedAt: null,
+            finishedAt: null,
+            totalSeconds: 0,
+            actualDurationSec: 0,
         }
 
         const repository = InMemoryTaskRepository([mockTask])
@@ -34,6 +39,7 @@ describe("Done Task Integration Test", () => {
     it("should complete a task from INPROGRESS and calculate final time", async () => {
         const mockTask: TaskResponse = {
             id: "1",
+            userId: "user-1",
             content: "Test task",
             status: 'INPROGRESS',
             routineId: "routine-1",
@@ -41,13 +47,16 @@ describe("Done Task Integration Test", () => {
             plannedStart: new Date(),
             plannedEnd: new Date(),
             durationSec: 3600,
+            startedAt: new Date(),
+            finishedAt: null,
+            totalSeconds: 0,
+            actualDurationSec: 0,
         }
 
         const repository = InMemoryTaskRepository([mockTask])
         const routineRepository = InMemoryRoutineRepository([])
         const taskService = TaskService(repository, routineRepository)
 
-        // Simular que a task começou há 30 segundos
         const startedAt = new Date()
         startedAt.setSeconds(startedAt.getSeconds() - 30)
 
@@ -68,6 +77,7 @@ describe("Done Task Integration Test", () => {
     it("should not complete a task if it is already done", async () => {
         const mockTask: TaskResponse = {
             id: "1",
+            userId: "user-1",
             content: "Test task",
             status: 'DONE',
             routineId: "routine-1",
@@ -75,6 +85,10 @@ describe("Done Task Integration Test", () => {
             plannedStart: new Date(),
             plannedEnd: new Date(),
             durationSec: 3600,
+            startedAt: null,
+            finishedAt: new Date(),
+            totalSeconds: 3680,
+            actualDurationSec: 3680,
         }
 
         const repository = InMemoryTaskRepository([mockTask])

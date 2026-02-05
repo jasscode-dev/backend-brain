@@ -1,8 +1,9 @@
 import type { RoutineDomain, RoutineModel, RoutineResponse, RoutineStatus } from "@types";
-import { Routine } from "src/generated/prisma";
+import { Routine, Task } from "src/generated/prisma";
+import { taskMapper } from "./task.mapper";
 
 export const routineMapper = {
-    toResponse: (routine: Routine): RoutineResponse => {
+    toResponse: (routine: Routine & { tasks?: Task[] }): RoutineResponse => {
         return {
             id: routine.id,
             date: routine.date,
@@ -13,7 +14,7 @@ export const routineMapper = {
             completionRate: routine.completionRate,
             starEarned: routine.starEarned,
             xpEarned: routine.xpEarned,
-
+            tasks: routine.tasks?.map(task => taskMapper.toDomain(task, routine.userId))
         }
     },
     toDomain: (routine: Routine): RoutineResponse => {

@@ -19,9 +19,7 @@ export const TaskSchema = z.object({
 
 
 })
-/* 
 export const IdSchema = z.object({
-    id: z.uuid({ message: "Invalid UUID format" })
+    id: z.cuid({ message: "Invalid CUID format" })
 });
- */
 export type TaskSchemaType = z.infer<typeof TaskSchema>;

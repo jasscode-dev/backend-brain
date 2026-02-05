@@ -9,6 +9,7 @@ describe("Pause Task Integration Test", () => {
     it("should pause a task", async () => {
         const mockTask: TaskResponse = {
             id: "1",
+            userId: "user-1",
             content: "Test task",
             status: 'INPROGRESS',
             routineId: "routine-1",
@@ -16,6 +17,10 @@ describe("Pause Task Integration Test", () => {
             plannedStart: new Date(),
             plannedEnd: new Date(),
             durationSec: 3600,
+            startedAt: new Date(),
+            finishedAt: null,
+            totalSeconds: 0,
+            actualDurationSec: 0,
         }
 
         const repository = InMemoryTaskRepository([mockTask])
@@ -43,6 +48,7 @@ describe("Pause Task Integration Test", () => {
     it("should not pause a task if it is not in progress", async () => {
         const mockTask: TaskResponse = {
             id: "1",
+            userId: "user-1",
             content: "Test task",
             status: 'PENDING',
             routineId: "routine-1",
@@ -50,6 +56,10 @@ describe("Pause Task Integration Test", () => {
             plannedStart: new Date(),
             plannedEnd: new Date(),
             durationSec: 3600,
+            startedAt: null,
+            finishedAt: null,
+            totalSeconds: 0,
+            actualDurationSec: 0,
         }
 
         const repository = InMemoryTaskRepository([mockTask])

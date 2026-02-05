@@ -19,8 +19,16 @@ export const RoutineRepository: IRoutineRepository = {
     },
     async findAllByUser(userId: string): Promise<RoutineResponse[]> {
         const routines = await prisma.routine.findMany({
-            where: { userId }
+            where: { userId },
+            include: { tasks: true }
         })
         return routines.map(routineMapper.toResponse)
     },
+    async findById(id: string): Promise<RoutineResponse | null> {
+        const routine = await prisma.routine.findUnique({
+            where: { id },
+            include: { tasks: true }
+        })
+        return routine ? routineMapper.toResponse(routine) : null
+    }
 }

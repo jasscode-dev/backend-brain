@@ -15,6 +15,8 @@ server.use('/api', router)
 server.use(globalErrorHandler)
 
 const PORT = process.env.PORT || 8080;
-server.listen(PORT, () => {
-    console.log(`Running: http://localhost:${PORT}`)
-})
+if (process.env.NODE_ENV !== 'test') {
+    server.listen(PORT, () => {
+        console.log(`Running: http://localhost:${PORT}`)
+    })
+}

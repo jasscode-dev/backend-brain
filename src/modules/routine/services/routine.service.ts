@@ -12,6 +12,14 @@ export const RoutineService = (
                 return existingRoutine
             }
             return await repository.save(createRoutine(userId, date));
+        },
+        findAllByUser: async (userId: string) => {
+            return await repository.findAllByUser(userId)
+        },
+        findById: async (id: string) => {
+            const routine = await repository.findById(id)
+            if (!routine) throw new AppError("Routine not found", 404)
+            return routine
         }
     }
 

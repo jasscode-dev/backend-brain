@@ -34,6 +34,7 @@ export const taskDomain = {
             totalSeconds: 0,
             startedAt: null,
             finishedAt: null,
+            cancelledAt: null,
             actualDurationSec: 0,
             category: input.category,
         })
@@ -95,7 +96,20 @@ export const taskDomain = {
             actualDurationSec: totalSeconds,
 
         }
-    }
+    },
+    cancel: (task: TaskDomain) => {
+        if (task.status === 'DONE') {
+            throw new AppError("Task is already done", 400)
+        }
+        return {
+            ...task,
+            status: 'CANCELLED' as const,
+            cancelledAt: new Date(),
+
+
+
+        }
+    },
 
 
 }

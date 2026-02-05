@@ -34,6 +34,13 @@ export const InMemoryTaskRepository = (initialTasks: TaskResponse[] = []): ITask
 
         async findAll() {
             return tasks;
+        },
+
+        async delete(id: string) {
+            const index = tasks.findIndex(t => t.id === id);
+            if (index !== -1) {
+                tasks.splice(index, 1);
+            }
         }
     }
 }

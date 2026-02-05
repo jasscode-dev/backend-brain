@@ -8,11 +8,15 @@ export const InMemoryRoutineRepository = (initialRoutine: RoutineResponse[]): IR
         async save(routine: RoutineDomain): Promise<RoutineResponse> {
             const created: RoutineResponse = {
                 id: crypto.randomUUID(),
-                routineStatus: 'PENDING',
+                date: routine.date,
+                userId: routine.userId,
+                routineStatus: routine.status,
+                totalTasks: routine.totalTasks,
+                completedTasks: routine.completedTasks,
                 completionRate: 0,
                 starEarned: false,
                 xpEarned: 0,
-                ...routine,
+                tasks: []
             }
             routines.push(created)
             return created
@@ -24,6 +28,9 @@ export const InMemoryRoutineRepository = (initialRoutine: RoutineResponse[]): IR
         async findAllByUser(userId: string): Promise<RoutineResponse[]> {
             return routines.filter(r => r.userId === userId)
         },
+        async findById(id: string): Promise<RoutineResponse | null> {
+            return routines.find(r => r.id === id) ?? null
+        }
 
 
     }

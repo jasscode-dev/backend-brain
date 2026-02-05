@@ -72,6 +72,7 @@ model Task {
 
   startedAt    DateTime?
   finishedAt   DateTime?
+  cancelledAt DateTime?
   actualDurationSec Int @default(0)
   
   
@@ -86,6 +87,7 @@ enum StatusTask {
   INPROGRESS
   DONE
   PAUSED
+  CANCELLED
 }
 
 enum RoutineStatus {

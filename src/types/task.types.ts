@@ -1,5 +1,5 @@
 
-export type StatusTask = "PENDING" | "INPROGRESS" | "DONE" | "PAUSED";
+export type StatusTask = "PENDING" | "INPROGRESS" | "DONE" | "PAUSED" | "CANCELLED";
 export type Category = "WORK" | "PERSONAL" | "STUDY" | "BREAK";
 
 
@@ -21,12 +21,14 @@ export type TaskDomain = TaskInput & {
     totalSeconds: number;
     startedAt: Date | null;
     finishedAt: Date | null;
+    cancelledAt: Date | null;
     actualDurationSec?: number;
 }
 
 
 export type TaskResponse = {
     id: string;
+    userId: string;
     content: string;
     routineId: string;
     category: Category;
@@ -34,7 +36,13 @@ export type TaskResponse = {
     plannedEnd: Date;
     durationSec: number;
     status: StatusTask;
+    startedAt: Date | null;
+    finishedAt: Date | null;
+    cancelledAt: Date | null;
+    totalSeconds: number;
+    actualDurationSec: number;
 }
+
 
 
 export type TaskModel = {
@@ -48,6 +56,7 @@ export type TaskModel = {
     totalSeconds: number;
     startedAt: Date | null;
     finishedAt: Date | null;
+    cancelledAt: Date | null;
     actualDurationSec: number;
     category: Category;
     createdAt: Date;
