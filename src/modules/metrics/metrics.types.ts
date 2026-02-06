@@ -13,9 +13,45 @@ export const XP_CONFIG = {
 }
 
 export type TaskXpInput = {
-    status:StatusTask
+    status: StatusTask
     category: Category;
     plannedEnd: Date;
     finishedAt: Date | null;
-
 }
+
+export type RoutineMetricsInput = {
+    completedTasks: number;
+    totalTasks: number;
+    totalSeconds: number;
+    tasks: TaskMetricData[];
+}
+
+export type TaskMetricData = {
+    status: StatusTask;
+    category: Category;
+    plannedEnd: Date;
+    finishedAt: Date | null;
+    plannedStart: Date;
+    startedAt: Date | null;
+    actualDurationSec: number;
+    durationSec: number;
+}
+
+export type RoutineMetrics = {
+    completionRate: number;
+    xpEarned: number;
+    avgTimePerTask: number;
+    timeAccuracy: number;
+    categoryDistribution: Record<Category, number>;
+    totalSeconds: number;
+    highlights: string[];
+}
+
+export type RoutineHighlight = 
+    | "PERFECT_ROUTINE"
+    | "SPEED_RUNNER" 
+    | "CONSISTENT_WORKER"
+    | "CATEGORY_MASTER"
+    | "XP_MACHINE"
+    | "STREAK_BUILDER"
+    | "MARATHON"

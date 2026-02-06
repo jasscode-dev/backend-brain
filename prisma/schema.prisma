@@ -40,17 +40,34 @@ model Routine {
 
   totalTasks Int @default(0)
   completedTasks Int @default(0)
-  completionRate Float @default(0)
-
-  starEarned      Boolean  @default(false)
-  xpEarned        Int      @default(0)
   
   tasks           Task[]
+  metrics         RoutineMetrics?
 
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
   
   @@unique([userId, date])
+}
+
+model RoutineMetrics {
+  id                    String   @id @default(cuid())
+  routineId             String   @unique
+  routine               Routine  @relation(fields: [routineId], references: [id], onDelete: Cascade)
+
+  completionRate        Float    @default(0)
+  avgTimePerTask        Float    @default(0)
+  timeAccuracy          Float    @default(0)
+  categoryDistribution  String   @default("{}")
+  totalSeconds          Int      @default(0)
+  
+  xpEarned              Int      @default(0)
+  starEarned            Boolean  @default(false)
+  
+  highlights            String   @default("[]")
+  
+  createdAt             DateTime @default(now())
+  updatedAt             DateTime @updatedAt
 }
 
 
